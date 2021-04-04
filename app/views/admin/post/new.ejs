@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>New post</title>
+    <%- include ("../layout/head") %>
+    <script src="/static/ckeditor/ckeditor.js"></script>
+
+  </head>
+  <body>
+    <%- include("../layout/nav") %>
+    <div class="container">
+      <h3>Create new Post</h3>
+      <% if (data && data.err) {%> 
+        <div
+          id="login-alert"
+          class="alert alert-danger col-sm-12"
+        >
+        <%= data.err %> 
+        </div>
+      <% } %>
+      <form method="POST" action="/admin/post/new/add">
+        <div class="form-group">
+          <label for="">Title</label>
+          <input
+            type="text"
+            class="form-control"
+            name="title"
+            id="title"
+            aria-describedby="helpId"
+            placeholder="title"
+          />
+        </div>
+        <div class="form-group">
+          <label for="">Content</label>
+          <textarea
+            type="text"
+            name="content"
+            class="ckeditor form-control"
+            id="editor1"
+            rows="15"
+            aria-describedby="helpId"
+            placeholder="content"
+          ></textarea>
+        </div>
+        <div class="form-group">
+          <label for="">Author</label>
+          <input
+            type="text"
+            class="form-control"
+            name="author"
+            id="author"
+            aria-describedby="helpId"
+            placeholder="author"
+          />
+        </div>
+        <button class="btn btn-success">add</button>
+      </form>
+    </div>
+    <script>
+      CKEDITOR.replace( 'editor1',{
+        extraPlugins:'filebrowser',
+        filebrowserBrowseUrl:'/list',//upload location
+        filebrowserUploadMethod:'form',
+        filebrowserUploadUrl:'http://localhost:3000/admin/post/upload'//route
+      });
+
+    </script>
+  </body>
+</html>
